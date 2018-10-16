@@ -1,3 +1,10 @@
+'''
+Based on Fang's batch burn mapping script and adapted for Tas.
+A TILELIST (text) file can be used to nominate the DEA tiles
+for processing (e.g. tiles covering Tasmania). Incude functions
+to show processing times for each step
+'''
+   
 import pandas as pd
 import geopandas as gpd
 import xarray as xr
@@ -8,7 +15,7 @@ ncpus = multiprocessing.cpu_count()
 from BurnCube import BurnCube #including burn mapping main functions
 
 
-# Map burnscar for Australia from Jul 2016 to Jun 2017
+# Map burnscars from time period specified
 
 ########################################################
 # location identified from Australian Albers tiles
@@ -34,7 +41,7 @@ if label:
     output_filename = outputdir + '/BurnScarMap_2016-2017_'+'_'.join(label.split(','))+'.nc'
     print("Working on tile {}...".format(label))
 else:
-    x, y = (1385000.0, 1375000.0), (-4570000.0, -4580000.0)
+    x, y = (1385000.0, 1375000.0), (-4570000.0, -4580000.0) # location used if TILELIST not provided
     if subset:
         output_filename = 'BurnScarMap_2016-2017_test_subset.nc'
     else:
@@ -46,9 +53,9 @@ if os.path.exists(output_filename):
 
 ########################################################
 
-sensor = 8
+sensor = 8 # senosor to use
 datatime = ('2013-01-01', '2017-06-30') # period to retrieve data
-referenceperiod = ('2013-01-01', '2016-06-30') # period used for the calculation of geometric median
+referenceperiod = ('2013-01-01', '2016-06-30') # period used for the calculation of geometric median (pre fire season)
 mappingperiod = ('2016-07-01', '2017-06-30') # period of interest for change/severity mapping
 
 def burnmap(x, y, sensor=sensor, datatime=datatime,
