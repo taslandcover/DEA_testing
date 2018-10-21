@@ -30,6 +30,11 @@ subset = True
 label = '12,-47'
 albers = gpd.read_file('/g/data/r78/DPIPWE_lm/test_burn_mapping/reference_data/Albers_Australia_Coast_Islands_Reefs.shp')
 
+#if len(sys.argv)==2:
+#    label = sys.argv[1]
+#elif len(sys.argv)==3:
+#    label = "{},{}".format(sys.argv[1], sys.argv[2])
+
 if label:
     index = albers[albers['label']==label].index[0]
     x = (albers.loc[index]['X_MIN'], albers.loc[index]['X_MAX'])
@@ -89,7 +94,7 @@ def burncomp(x, y):
     return out.copy()
     
     *************
-    xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
+xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
 x1, x2 = (x[0], xm), (xm, x[1])
 y1, y2 = (y[0], ym), (ym, y[1])
 if subset:
@@ -98,3 +103,6 @@ if subset:
     out = xr.concat([out1, out2], dim='x')
 else:
     out = burnmap(x, y)
+    
+# Output to netcdf
+cd.storage.storage.write_dataset_to_netcdf(out, output_filename)
