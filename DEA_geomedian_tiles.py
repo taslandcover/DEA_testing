@@ -30,10 +30,10 @@ subset = True
 label = None
 albers = gpd.read_file('/g/data/r78/DPIPWE_lm/test_burn_mapping/reference_data/Albers_Australia_Coast_Islands_Reefs.shp')
 
-#if len(sys.argv)==2:
-#    label = sys.argv[1]
-#elif len(sys.argv)==3:
-#    label = "{},{}".format(sys.argv[1], sys.argv[2])
+if len(sys.argv)==2:
+    label = sys.argv[1]
+elif len(sys.argv)==3:
+    label = "{},{}".format(sys.argv[1], sys.argv[2])
 
 if label:
     index = albers[albers['label']==label].index[0]
@@ -47,8 +47,13 @@ else:
         output_filename = 'composite_2016-2017_test_subset.nc'
     else:
         output_filename = 'composite_2016-2017_test_one.nc'
+        
+if os.path.exists(output_filename):
+    print("output file already exists.")
+    exit() 
 
-sensor = 'ls8'_nbart_albers'
+#####################################################
+sensor = 'ls8'
 #datatime = ('2017-01-01', '2017-01-30') # period to retrieve data
 #referenceperiod = ('2013-01-01', '2016-06-30') # period used for the calculation of geometric median
 #mappingperiod = ('2016-07-01', '2017-06-30') # period of interest for change/severity mapping
@@ -56,17 +61,22 @@ sensor = 'ls8'_nbart_albers'
 
 query = {'x': x,
          'y': y,
-         'time': ('2017-01-01', '2017-01-30'),
+         'time': ('2016-01-01', '2017-01-30'),
          'resolution': (25,25),
          'crs': 'EPSG:3577'}
+####################################################
 
 def burncomp(x, y):
-    ds = dc.load(product=sensor+'_nbart_albers', group_by = 'solar_day', **query)
+    ds = dc.load(product=sensor+'_nbart_albers',
+                 group_by = 'solar_day',
+                 dask_chunks={'time': 1},
+                 **query)
 
     # Load PQ data for same query used to load Landsat data
     pq_ds = dc.load(product = sensor+'_pq_albers',
                     group_by = 'solar_day',
                     fuse_func=ga_pq_fuser,
+                    dask_chunks={'time': 1},
                     **query)
 
     # Use PQ to create mask that is True for pixels that are not affected by clouds, cloud shadow or saturation
