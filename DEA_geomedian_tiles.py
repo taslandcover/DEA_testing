@@ -103,7 +103,7 @@ def burncomp(x, y):
     out = GeoMedian().compute(ds)
     return out.copy()
 
-    *************
+####################################################
 xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
 x1, x2 = (x[0], xm), (xm, x[1])
 y1, y2 = (y[0], ym), (ym, y[1])
