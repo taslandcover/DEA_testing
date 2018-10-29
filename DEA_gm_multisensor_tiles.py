@@ -16,13 +16,13 @@ from datacube.storage import masking
 from datacube.helpers import write_geotiff
 
 #get the DEA version of the plotting functions
-sys.path.append(os.path.abspath('/home/554/lm4502/dea-notebooks-master/10_Scripts'))
+sys.path.append(os.path.abspath('/home/554/lm4502/dea-notebooks-master/10_Scripts')) #Change when
 import DEAPlotting
 import DEADataHandling
 
 
 import datacube
-dc = datacube.Datacube(app='load_nbarx_example')
+dc = datacube.Datacube(app='load_nbarx_geomedian')
 
 ''' delete if not needed
 
@@ -54,40 +54,43 @@ if label:
     index = albers[albers['label']==label].index[0]
     x = (albers.loc[index]['X_MIN'], albers.loc[index]['X_MAX'])
     y = (albers.loc[index]['Y_MIN'], albers.loc[index]['Y_MAX'])
-    output_filename = outputdir + '/composite_2016-2017_'+'_'.join(label.split(','))+'.nc'
+    output_filename = outputdir + '/multigm_2016-2017_'+'_'.join(label.split(','))+'.nc'
     print("Working on tile {}...".format(label))
 else:
     x, y = (1385000.0, 1375000.0), (-4570000.0, -4580000.0)
     if subset:
-        output_filename = 'composite_2016-2017_test_subset.nc'
+        output_filename = 'multigm_2016-2017_test_subset.nc'
     else:
-        output_filename = 'composite_2016-2017_test_one.nc'
+        output_filename = 'multigm_2016-2017_test_one.nc'
         
 if os.path.exists(output_filename):
     print("output file already exists.")
     exit() 
 
 #####################################################
-sensor = 'ls8'
 #datatime = ('2017-01-01', '2017-01-30') # period to retrieve data
 #referenceperiod = ('2013-01-01', '2016-06-30') # period used for the calculation of geometric median
 #mappingperiod = ('2016-07-01', '2017-06-30') # period of interest for change/severity mapping
 #res = (25, 25)
 
+product = 'nbart' # can be 'nbar', 'nbart' or 'fc'. Defaults to 'nbart'
+
 query = {'x': x,
          'y': y,
-         'time': ('2016-01-01', '2017-01-30'),
+         'time': ('2016-12-01', '2017-01-30'),
          'resolution': (25,25),
          'crs': 'EPSG:3577'}
+
 ####################################################
 
-def burncomp(x, y):
-    ds = dc.load(product=sensor+'_nbart_albers',
-                 group_by = 'solar_day',
-                 dask_chunks={'time': 1},
-                 **query)
+def multigm(x, y):
+    dsm = DEADataHandling.load_clealamdsat(dc=dc, query=query,
+                                           product=product
+                                           masked_prop=0,
+                                           ls7_slc_off=True)
 
-    # Load PQ data for same query used to load Landsat data
+    
+    ''' # Load PQ data for same query used to load Landsat data
     pq_ds = dc.load(product = sensor+'_pq_albers',
                     group_by = 'solar_day',
                     fuse_func=ga_pq_fuser,
@@ -113,12 +116,14 @@ def burncomp(x, y):
 
     # Apply the mask to preserve only the good data
     ds = ds.where(good_quality_ds)
+    '''
 
     # compute geomedian
-    out = GeoMedian().compute(ds)
+    out = GeoMedian().compute(dsm)
     return out.copy()
 
 ####################################################
+
 xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
 x1, x2 = (x[0], xm), (xm, x[1])
 y1, y2 = (y[0], ym), (ym, y[1])
