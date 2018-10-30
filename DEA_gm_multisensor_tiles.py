@@ -16,7 +16,7 @@ from datacube.storage import masking
 from datacube.helpers import write_geotiff
 
 #get the DEA version of the plotting functions
-sys.path.append(os.path.abspath('/home/554/lm4502/dea-notebooks-master/10_Scripts')) #Change when
+sys.path.append(os.path.abspath('/g/data/r78/DPIPWE_lm/dea-notebooks/10_Scripts'))
 import DEAPlotting
 import DEADataHandling
 
@@ -73,8 +73,8 @@ if os.path.exists(output_filename):
 #mappingperiod = ('2016-07-01', '2017-06-30') # period of interest for change/severity mapping
 #res = (25, 25)
 
-product = 'nbart' # can be 'nbar', 'nbart' or 'fc'. Defaults to 'nbart'
-
+product = 'nbart' #can be 'nbar', 'nbart' or 'fc'. Defaults to 'nbart'
+sensors = ['ls5', 'ls7', 'ls8'] #take or remove as needed
 query = {'x': x,
          'y': y,
          'time': ('2016-12-01', '2017-01-30'),
@@ -84,9 +84,10 @@ query = {'x': x,
 ####################################################
 
 def multigm(x, y):
-    dsm = DEADataHandling.load_clealamdsat(dc=dc, query=query,
+    dsm = DEADataHandling.load_clearlandsat(dc=dc, query=query,
                                            product=product
                                            masked_prop=0,
+                                           sensors = sensors
                                            ls7_slc_off=True)
 
     
@@ -135,4 +136,4 @@ else:
     out = burnmap(x, y)
 
 # Output to netcdf
-cd.storage.storage.write_dataset_to_netcdf(out, output_filename)
+dc.storage.storage.write_dataset_to_netcdf(out, output_filename)
