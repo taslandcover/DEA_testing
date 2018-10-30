@@ -85,9 +85,9 @@ query = {'x': x,
 
 def multigm(x, y):
     dsm = DEADataHandling.load_clearlandsat(dc=dc, query=query,
-                                           product=product
+                                           product=product,
                                            masked_prop=0,
-                                           sensors = sensors
+                                           sensors = sensors,
                                            ls7_slc_off=True)
 
     
