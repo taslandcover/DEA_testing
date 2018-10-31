@@ -66,7 +66,7 @@ query = {'x': x,
          'crs': 'EPSG:3577'}
 ####################################################
 
-def burncomp(x, y):
+def gm_comp(x, y):
     ds = dc.load(product=sensor+'_nbart_albers',
                  group_by = 'solar_day',
                  dask_chunks={'time': 1},
@@ -108,11 +108,11 @@ xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
 x1, x2 = (x[0], xm), (xm, x[1])
 y1, y2 = (y[0], ym), (ym, y[1])
 if subset:
-    out1 = burncomp(x1, y)
-    out2 = burncomp(x2, y)
+    out1 = gm_comp(x1, y)
+    out2 = gm_comp(x2, y)
     out = xr.concat([out1, out2], dim='x')
 else:
-    out = burnmap(x, y)
+    out = gm_comp(x, y)
 
 # Output to netcdf
-cd.storage.storage.write_dataset_to_netcdf(out, output_filename)
+datacube.storage.storage.write_dataset_to_netcdf(out, output_filename)
