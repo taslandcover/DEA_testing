@@ -4,6 +4,9 @@
 '''
 
 import sys, os
+import pandas as pd
+import geopandas as gpd
+import xarray as xr
 import time
 import multiprocessing
 ncpus = multiprocessing.cpu_count()
@@ -129,11 +132,12 @@ xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
 x1, x2 = (x[0], xm), (xm, x[1])
 y1, y2 = (y[0], ym), (ym, y[1])
 if subset:
-    out1 = burncomp(x1, y)
-    out2 = burncomp(x2, y)
+    out1 = multigm(x1, y)
+    out2 = multigm(x2, y)
     out = xr.concat([out1, out2], dim='x')
 else:
-    out = burnmap(x, y)
+    out = multigm(x, y)
 
 # Output to netcdf
-dc.storage.storage.write_dataset_to_netcdf(out, output_filename)
+datacube.storage.storage.write_dataset_to_netcdf(out, output_filename)
+#out.to_netcdf(output_filename)
