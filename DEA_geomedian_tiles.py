@@ -39,14 +39,14 @@ if label:
     index = albers[albers['label']==label].index[0]
     x = (albers.loc[index]['X_MIN'], albers.loc[index]['X_MAX'])
     y = (albers.loc[index]['Y_MIN'], albers.loc[index]['Y_MAX'])
-    output_filename = outputdir + '/composite_2016-2017_'+'_'.join(label.split(','))+'.nc'
+    output_filename = outputdir + '/gm_2016-2017_'+'_'.join(label.split(','))+'.nc'
     print("Working on tile {}...".format(label))
 else:
     x, y = (1385000.0, 1375000.0), (-4570000.0, -4580000.0)
     if subset:
-        output_filename = 'composite_2016-2017_test_subset.nc'
+        output_filename = 'gm_2016-2017_test_subset.nc'
     else:
-        output_filename = 'composite_2016-2017_test_one.nc'
+        output_filename = 'gm_2016-2017_test_one.nc'
         
 if os.path.exists(output_filename):
     print("output file already exists.")
