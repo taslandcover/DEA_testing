@@ -71,22 +71,20 @@ if os.path.exists(output_filename):
     exit() 
 
 #####################################################
-#datatime = ('2017-01-01', '2017-01-30') # period to retrieve data
-#referenceperiod = ('2013-01-01', '2016-06-30') # period used for the calculation of geometric median
-#mappingperiod = ('2016-07-01', '2017-06-30') # period of interest for change/severity mapping
-#res = (25, 25)
 
 product = 'nbart' #can be 'nbar', 'nbart' or 'fc'. Defaults to 'nbart'
 sensors = ['ls5', 'ls7', 'ls8'] #take or remove as needed
-query = {'x': x,
-         'y': y,
-         'time': ('2016-12-01', '2017-01-30'),
-         'resolution': (25,25),
-         'crs': 'EPSG:3577'}
+time = ('2016-12-01', '2017-01-30')
+resolution = (25,25)
 
 ####################################################
 
 def multigm(x, y):
+    query = {'x': x,
+             'y': y,
+             'time': time,
+             'resolution': resolution,
+             'crs': 'EPSG:3577'}
     dsm = DEADataHandling.load_clearlandsat(dc=dc, query=query,
                                            product=product,
                                            masked_prop=0,
@@ -94,37 +92,9 @@ def multigm(x, y):
                                            ls7_slc_off=True)
 
     
-    ''' # Load PQ data for same query used to load Landsat data
-    pq_ds = dc.load(product = sensor+'_pq_albers',
-                    group_by = 'solar_day',
-                    fuse_func=ga_pq_fuser,
-                    dask_chunks={'time': 1},
-                    **query)
-
-    # Use PQ to create mask that is True for pixels that are not affected by clouds, cloud shadow or saturation
-    good_quality_ds = masking.make_mask(pq_ds.pixelquality,
-                                    cloud_acca='no_cloud',
-                                    cloud_fmask='no_cloud',
-                                    cloud_shadow_acca='no_cloud_shadow',
-                                    cloud_shadow_fmask='no_cloud_shadow',
-                                    blue_saturated=False,
-                                    green_saturated=False,
-                                    red_saturated=False,
-                                    nir_saturated=False,
-                                    swir1_saturated=False,
-                                    swir2_saturated=False,
-                                    contiguous=True)
-
-    # Remove -999 nodata values prior to analysing or plotting Landsat imagery by setting all nodata values to `NaN`
-    ds = masking.mask_invalid_data(ds)
-
-    # Apply the mask to preserve only the good data
-    ds = ds.where(good_quality_ds)
-    '''
-
     # compute geomedian
-    out = GeoMedian().compute(dsm)
-    return out.copy()
+    dsm_gm = GeoMedian().compute(dsm)
+    return dsm_gm.copy()
 
 ####################################################
 
