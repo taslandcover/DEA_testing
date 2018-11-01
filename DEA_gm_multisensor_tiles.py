@@ -89,6 +89,7 @@ def multigm(x, y):
                                            product=product,
                                            masked_prop=0,
                                            sensors = sensors,
+                                           bands_of_interest = ['blue', 'green', 'nir', 'red', 'swir1', 'swir2'],
                                            ls7_slc_off=True)
 
     
