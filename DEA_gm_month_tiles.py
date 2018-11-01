@@ -27,6 +27,8 @@ outputdir = '/g/data/r78/DPIPWE_lm/test_burn_mapping/output_data'
 if not os.path.exists(outputdir):
     print("output directory doesn't exist")
     exit()
+    
+#########################################################
 
 subset = True
 label = None
@@ -41,20 +43,21 @@ if label:
     index = albers[albers['label']==label].index[0]
     x = (albers.loc[index]['X_MIN'], albers.loc[index]['X_MAX'])
     y = (albers.loc[index]['Y_MIN'], albers.loc[index]['Y_MAX'])
-    output_filename = outputdir + '/composite_2016-2017_'+'_'.join(label.split(','))+'.nc'
+    output_filename = outputdir + '/month_gm_2016-2017_'+'_'.join(label.split(','))+'.nc'
     print("Working on tile {}...".format(label))
 else:
     x, y = (1385000.0, 1375000.0), (-4570000.0, -4580000.0)
     if subset:
-        output_filename = 'composite_2016-2017_test_subset.nc'
+        output_filename = 'month_gm_2016-2017_test_subset.nc'
     else:
-        output_filename = 'composite_2016-2017_test_one.nc'
+        output_filename = 'month_gm_2016-2017_test_one.nc'
         
 if os.path.exists(output_filename):
     print("output file already exists.")
     exit() 
 
 #####################################################
+
 sensor = 'ls8' # make list to iterate over
 deriv = 'nbart'
 prod = sensor + '_'+deriv+'_albers'
@@ -63,9 +66,6 @@ prod_pq = sensor+'_pq_'+'_albers
 epoch = ('2016-12-01', '2017-01-30') # time query for datacube function can be just years
 cmonths = [11,12,1,2,3,4] # a list of months for which you want results
 
-query = {'x': x,
-         'y': y,
-         'crs': 'EPSG:3577'}
 ####################################################
 
 # make a list of all the datasets (and pq datasets) available for area and epoch
@@ -87,11 +87,14 @@ for pq_scene in pq_scenes:
         cm_pq_ds.append(pq_scene)
     else:
         print('No custom pq months found')
-            
 
 ####################################################
 
 def load_ds(x, y):
+    query = {'x': x,
+             'y': y,
+             'crs': 'EPSG:3577'}
+    
     ds = dc.load(product = prod,
                  datasets = cm_ds
                  group_by = 'solar_day',
@@ -127,8 +130,8 @@ def load_ds(x, y):
     ds = ds.where(good_quality_ds)
 
     # compute geomedian
-    out = GeoMedian().compute(ds)
-    return out.copy()
+    ds_mgm = GeoMedian().compute(ds)
+    return ds_mgm.copy()
 
 ####################################################
 xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
@@ -142,4 +145,4 @@ else:
     out = load_ds(x, y)
 
 # Output to netcdf
-cd.storage.storage.write_dataset_to_netcdf(out, output_filename)
+datacube.storage.storage.write_dataset_to_netcdf(out, output_filename)
