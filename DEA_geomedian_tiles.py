@@ -53,20 +53,22 @@ if os.path.exists(output_filename):
     exit() 
 
 #####################################################
-sensor = 'ls8'
-#datatime = ('2017-01-01', '2017-01-30') # period to retrieve data
-#referenceperiod = ('2013-01-01', '2016-06-30') # period used for the calculation of geometric median
-#mappingperiod = ('2016-07-01', '2017-06-30') # period of interest for change/severity mapping
-#res = (25, 25)
 
-query = {'x': x,
-         'y': y,
-         'time': ('2016-01-01', '2017-01-30'),
-         'resolution': (25,25),
-         'crs': 'EPSG:3577'}
+# Edit these variables as needed
+
+sensor = 'ls8'
+time = ('2016-07-01', '2017-06-30') # period of interest for change/severity mapping
+resolution = (25, 25)
+
 ####################################################
 
 def gm_comp(x, y):
+    query = {'x': x,
+             'y': y,
+             'time': time,
+             'resolution': resolution,
+             'crs': 'EPSG:3577'}
+    
     ds = dc.load(product=sensor+'_nbart_albers',
                  group_by = 'solar_day',
                  dask_chunks={'time': 1},
@@ -100,8 +102,8 @@ def gm_comp(x, y):
     ds = ds.where(good_quality_ds)
 
     # compute geomedian
-    out = GeoMedian().compute(ds)
-    return out.copy()
+    ds_gm = GeoMedian().compute(ds)
+    return ds_gm.copy()
 
 ####################################################
 xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
