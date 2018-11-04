@@ -61,13 +61,13 @@ if os.path.exists(output_filename):
 sensor = 'ls8' # make list to iterate over
 deriv = 'nbart'
 prod = sensor + '_'+deriv+'_albers'
-prod_pq = sensor+'_pq_'+'_albers
+prod_pq = sensor+'_pq_albers'
 
 epoch = ('2016-12-01', '2017-01-30') # time query for datacube function can be just years
 cmonths = [11,12,1,2,3,4] # a list of months for which you want results
 
 ####################################################
-
+'''
 # make a list of all the datasets (and pq datasets) available for area and epoch
 scenes = dc.find_datasets(product=prod, time=epoch, **query)
 pq_scenes = dc.find_datasets(product=prod_pq, time=epoch, **query)
@@ -87,13 +87,34 @@ for pq_scene in pq_scenes:
         cm_pq_ds.append(pq_scene)
     else:
         print('No custom pq months found')
-
+'''
 ####################################################
 
 def load_ds(x, y):
     query = {'x': x,
              'y': y,
              'crs': 'EPSG:3577'}
+    
+    # make a list of all the datasets (and pq datasets) available for area and epoch
+    scenes = dc.find_datasets(product=prod, time=epoch, **query)
+    pq_scenes = dc.find_datasets(product=prod_pq, time=epoch, **query)
+
+    # make new lists for just the months of interest
+    cm_ds = []
+    cm_pq_ds = []
+
+    for scene in scenes:
+        if scene.center_time.month in cmonths:
+            cm_ds.append(scene)
+        else:
+            print('No custom months found')
+        
+    for pq_scene in pq_scenes:
+        if pq_scene.center_time.month in cmonths:
+            cm_pq_ds.append(pq_scene)
+        else:
+            print('No custom pq months found')
+   
     
     ds = dc.load(product = prod,
                  datasets = cm_ds
