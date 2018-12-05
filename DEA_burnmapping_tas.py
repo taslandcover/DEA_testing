@@ -12,6 +12,9 @@ import sys, os
 import time
 import multiprocessing
 ncpus = multiprocessing.cpu_count()
+
+#set path to burncube module
+sys.path.append(os.path.abspath('/g/data/r78/DPIPWE_lm/test_burn_mapping'))
 from BurnCube import BurnCube #including burn mapping main functions
 
 
