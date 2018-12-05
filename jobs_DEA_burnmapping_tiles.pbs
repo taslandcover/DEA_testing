@@ -3,7 +3,7 @@
 #PBS -q normal
 #PBS -l ncpus=4
 #PBS -l mem=128GB
-#PBS -l walltime=8:00:00
+#PBS -l walltime=14:00:00
 #PBS -l software=python
 #PBS -l wd
 #PBS -M lindsay.mitchell@dpipwe.tas.gov.au
