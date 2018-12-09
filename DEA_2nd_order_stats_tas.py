@@ -22,8 +22,14 @@ from model import SMAD, BCMAD, EMAD, TernaryMAD
 
 import datacube
 dc = datacube.Datacube(app='stats_2nd_testing')
+print("modules loaded...")
 
 ###############################################################################
+
+outputdir = '/g/data/r78/DPIPWE_lm/output_data'
+if not os.path.exists(outputdir):
+    print("output directory doesn't exist")
+    exit()
 
 #x, y = (1385000.0, 1390000.0), (-4570000.0, -4575000.0)
 sensors = ['ls8', 'ls7'] #take or remove as needed
@@ -41,7 +47,7 @@ query = {'x': (1300000.0, 1400000.0),
          'crs': 'EPSG:3577'}
 
 ###############################################################################
-
+print("...loading clear landsat.")
 dsma = DEADataHandling.load_clearlandsat(dc=dc, query=query,
                                           #product=product,
                                           masked_prop=0,
@@ -53,7 +59,7 @@ dsma = DEADataHandling.load_clearlandsat(dc=dc, query=query,
 dsma = dsma.drop('data_perc')
 
 ##############################################################################
-
+print("...computing TernaryMAD"
 dsma_smad = TernaryMAD().compute(dsma)
 
 ds=xr.Dataset({'smad': (['y','x'], dsma_smad.sdev),
@@ -61,6 +67,7 @@ ds=xr.Dataset({'smad': (['y','x'], dsma_smad.sdev),
                'bcmad': (['y','x'], dsma_smad.bcdev)},
                 coords={'x': dsma.x, 'y':dsma.y}, attrs=dsma.attrs)
 
+print("...writing output")
 #datacube.storage.storage.write_dataset_to_netcdf(dsma_smad, '/g/data/r78/DPIPWE_LM/output_data/ls8_smad_test.nc')
 datacube.helpers.write_geotiff(filename='/g/data/r78/DPIPWE_lm/output_data/ls8_TMAD_lscomb2016.tif', dataset=ds)
 #DEADataHandling.dataset_to_geotiff('dsma_smad_netcdf_test.nc', dsma_smad)
