@@ -59,12 +59,12 @@ dsma = DEADataHandling.load_clearlandsat(dc=dc, query=query,
 dsma = dsma.drop('data_perc')
 
 ##############################################################################
-print("...computing TernaryMAD"
-dsma_smad = TernaryMAD().compute(dsma)
+print("...computing TernaryMAD")
+dsma_tmad = TernaryMAD().compute(dsma)
 
-ds=xr.Dataset({'smad': (['y','x'], dsma_smad.sdev),
-               'emad': (['y','x'], dsma_smad.edev),
-               'bcmad': (['y','x'], dsma_smad.bcdev)},
+ds=xr.Dataset({'smad': (['y','x'], dsma_tmad.sdev),
+               'emad': (['y','x'], dsma_tmad.edev),
+               'bcmad': (['y','x'], dsma_tmad.bcdev)},
                 coords={'x': dsma.x, 'y':dsma.y}, attrs=dsma.attrs)
 
 print("...writing output")
