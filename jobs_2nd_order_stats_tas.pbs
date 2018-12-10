@@ -16,4 +16,4 @@ module load dea
 module load parallel
 
 #cat TILELIST | parallel -j 2 -u python composite_testing_tas.py
-DEA_2nd_order_stats_tas.py
+python DEA_2nd_order_stats_tas.py $si
