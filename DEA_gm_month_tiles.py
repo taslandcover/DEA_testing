@@ -1,7 +1,6 @@
-''' Produces a geomedian image from a defined epoch
-    but limited to the months of interest e.g.
-    November - March (nominal dry seasonon). Takes
-    a list of tiles in TILELIST
+''' Produces a geomedian image from a defined epoch but limited
+    to the months of interest e.g.November - March (nominal dry seasonon).
+    Takes a list of tiles in TILELIST. 
 '''
 
 import pandas as pd
@@ -27,7 +26,7 @@ outputdir = '/g/data/r78/DPIPWE_lm/test_burn_mapping/output_data'
 if not os.path.exists(outputdir):
     print("output directory doesn't exist")
     exit()
-    
+
 #########################################################
 
 subset = True
@@ -51,10 +50,10 @@ else:
         output_filename = 'month_gm_2016-2017_test_subset.nc'
     else:
         output_filename = 'month_gm_2016-2017_test_one.nc'
-        
+
 if os.path.exists(output_filename):
     print("output file already exists.")
-    exit() 
+    exit()
 
 #####################################################
 
@@ -81,7 +80,7 @@ for scene in scenes:
         cm_ds.append(scene)
     else:
         print('No custom months found')
-        
+
 for pq_scene in pq_scenes:
     if pq_scene.center_time.month in cmonths:
         cm_pq_ds.append(pq_scene)
@@ -94,7 +93,7 @@ def load_ds(x, y):
     query = {'x': x,
              'y': y,
              'crs': 'EPSG:3577'}
-    
+
     # make a list of all the datasets (and pq datasets) available for area and epoch
     scenes = dc.find_datasets(product=prod, time=epoch, **query)
     pq_scenes = dc.find_datasets(product=prod_pq, time=epoch, **query)
@@ -108,14 +107,14 @@ def load_ds(x, y):
             cm_ds.append(scene)
         else:
             print('No custom months found')
-        
+
     for pq_scene in pq_scenes:
         if pq_scene.center_time.month in cmonths:
             cm_pq_ds.append(pq_scene)
         else:
             print('No custom pq months found')
-   
-    
+
+
     ds = dc.load(product = prod,
                  datasets = cm_ds
                  group_by = 'solar_day',
