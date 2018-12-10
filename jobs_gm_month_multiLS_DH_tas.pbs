@@ -2,7 +2,7 @@
 #PBS -P r78
 #PBS -q normal
 #PBS -l ncpus=2
-#PBS -l mem=100GB
+#PBS -l mem=128GB
 #PBS -l walltime=4:00:00
 #PBS -l software=python
 #PBS -l wd
