@@ -1,8 +1,8 @@
 #!/bin/bash
 #PBS -P r78
 #PBS -q megamem
-#PBS -l ncpus=8
-#PBS -l mem=288GB
+#PBS -l ncpus=32
+#PBS -l mem=1024GB
 #PBS -l walltime=2:00:00
 #PBS -l software=python
 #PBS -l wd
