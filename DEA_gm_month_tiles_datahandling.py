@@ -28,7 +28,7 @@ import DEADataHandling
 import datacube
 dc = datacube.Datacube(app='multi_landsat_geomedian')
 
-outputdir = '/g/data/r78/DPIPWE_lm/test_burn_mapping/output_data'
+outputdir = '/g/data/r78/DPIPWE_lm/test_burn_mapping/output_data/'
 if not os.path.exists(outputdir):
     print("output directory doesn't exist")
     exit()
