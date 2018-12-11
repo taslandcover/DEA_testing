@@ -28,7 +28,7 @@ import DEADataHandling
 import datacube
 dc = datacube.Datacube(app='multi_landsat_geomedian')
 
-outputdir = '/g/data/r78/DPIPWE_lm/test_burn_mapping/output_data/'
+outputdir = '/g/data/r78/DPIPWE_lm/test_burn_mapping/output_data'
 if not os.path.exists(outputdir):
     print("output directory doesn't exist")
     exit()
@@ -48,7 +48,7 @@ if label:
     index = albers[albers['label']==label].index[0]
     x = (albers.loc[index]['X_MIN'], albers.loc[index]['X_MAX'])
     y = (albers.loc[index]['Y_MIN'], albers.loc[index]['Y_MAX'])
-    output_filename = outputdir + '2015_2016/LS_gm_dry_2015_2016'+'_'.join(label.split(','))+'.nc'
+    output_filename = outputdir + '/2015_2016/LS_gm_dry_2015_2016'+'_'.join(label.split(','))+'.nc'
     print("Working on tile {}...".format(label))
 else:
     x, y = (1385000.0, 1375000.0), (-4570000.0, -4580000.0)
