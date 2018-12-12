@@ -32,10 +32,10 @@ if not os.path.exists(outputdir):
     exit()
 
 #x, y = (1385000.0, 1390000.0), (-4570000.0, -4575000.0)
-sensors = ['ls8', 'ls7'] #take or remove as needed
+sensors = ['ls8', 'ls7', 'ls5'] #take or remove as needed
 deriv = 'nbart'
 #product = 'nbart' #
-time = ('2016-01-01', '2016-12-31')
+time = ('2010-01-01', '2015-12-31')
 resolution = (-25,25)
 bands = ['red', 'green', 'blue', 'nir', 'swir1', 'swir2']
 #epoch = ('2016', '2017') # time query for datacube function can be just years
@@ -69,5 +69,5 @@ ds=xr.Dataset({'smad': (['y','x'], dsma_tmad.sdev),
 
 print("...writing output")
 #datacube.storage.storage.write_dataset_to_netcdf(dsma_smad, '/g/data/r78/DPIPWE_LM/output_data/ls8_smad_test.nc')
-datacube.helpers.write_geotiff(filename='/g/data/r78/DPIPWE_lm/output_data/ls8_TMAD_lscomb2016.tif', dataset=ds)
+datacube.helpers.write_geotiff(filename='/g/data/r78/DPIPWE_lm/output_data/lsX_TMAD_2010_2015.tif', dataset=ds)
 #DEADataHandling.dataset_to_geotiff('dsma_smad_netcdf_test.nc', dsma_smad)
