@@ -70,4 +70,5 @@ ds=xr.Dataset({'smad': (['y','x'], dsma_tmad.sdev),
 print("...writing output")
 #datacube.storage.storage.write_dataset_to_netcdf(dsma_smad, '/g/data/r78/DPIPWE_LM/output_data/ls8_smad_test.nc')
 datacube.helpers.write_geotiff(filename='/g/data/r78/DPIPWE_lm/output_data/lsX_TMAD_2010_2015.tif', dataset=ds)
+datacube.storage.storage.write_dataset_to_netcdf(dsma, '/g/data/r78/DPIPWE_lm/output_data/lsX_pcm_2010_2015.nc')
 #DEADataHandling.dataset_to_geotiff('dsma_smad_netcdf_test.nc', dsma_smad)
