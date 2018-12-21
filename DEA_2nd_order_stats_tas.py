@@ -58,7 +58,7 @@ dsma = DEADataHandling.load_clearlandsat(dc=dc, query=query,
 
 dsma = dsma.drop('data_perc')
 # compute geomedian
-dsma_gm = GeoMedian().compute(dsm)
+dsma_gm = GeoMedian().compute(dsma)
 
 ##############################################################################
 print("...computing TernaryMAD")
