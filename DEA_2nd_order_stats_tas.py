@@ -35,7 +35,7 @@ if not os.path.exists(outputdir):
 sensors = ['ls8', 'ls7', 'ls5'] #take or remove as needed
 deriv = 'nbart'
 #product = 'nbart' #
-time = ('2010-01-01', '2015-12-31')
+time = ('2016-01-01', '2016-12-31')
 resolution = (-25,25)
 bands = ['red', 'green', 'blue', 'nir', 'swir1', 'swir2']
 #epoch = ('2016', '2017') # time query for datacube function can be just years
