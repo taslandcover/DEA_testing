@@ -47,7 +47,7 @@ FC_percentiles.attrs['units'] = 'fractional_cover_percentage_percentile'
 
 try:
     ds = FC_percentiles
-    write_geotiff(filename='/g/data/r78/DPIPWE_lm/output_data/FC_percentiles_tamar.tif', ds)
+    write_geotiff(filename='/g/data/r78/DPIPWE_lm/output_data/FC_percentiles_tamar.tif', dataset=ds)
     print('wrote to GeoTiff' )
 #         DEADataHandling.write_your_netcdf(FC_quantiles.isel(quantile=quant), 'FC_Q'+str(quantiles[quant]), savefilepath+'FC_Q_'+(str(quantiles[quant]).replace('.','_'))+'.nc', crs = ds.crs)
 except RuntimeError as err:
