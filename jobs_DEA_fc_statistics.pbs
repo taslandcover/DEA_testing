@@ -1,0 +1,18 @@
+#!/bin/bash
+#PBS -P r78
+#PBS -q normal
+#PBS -l ncpus=4
+#PBS -l mem=128GB
+#PBS -l walltime=4:00:00
+#PBS -l software=python
+#PBS -l wd
+#PBS -M lindsay.mitchell@dpipwe.tas.gov.au
+#PBS -m be
+
+#module use /g/data/u46/users/public/modules/modulefiles/
+module use /g/data/v10/public/modules/modulefiles
+module load dea
+#module load pcm
+module load parallel
+
+cat TILELIST | parallel -j 2 -u python DEA_fc_statistics.py
