@@ -31,7 +31,9 @@ query_PL = {
                 'resolution': (-25,25)
                 }
 
-ds_tam = DEADataHandling.load_clearlandsat(dc=dc, query=query_PL, product='fc', ls7_slc_off=True, masked_prop=0.3)
+ds_tam = DEADataHandling.load_clearlandsat(dc=dc, query=query_PL, product='fc',
+                                            ls7_slc_off=True, masked_prop=0.3,
+                                            mask_pixel_quality=True)
 
 ################################################################################
 
