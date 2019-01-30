@@ -25,15 +25,14 @@ dc = datacube.Datacube(app='dc-FC')
 
 ################################################################################
 query_PL = {
-                'time': ('1990', '2018'),
+                'time': ('1990-01-01', '2018-12-31'),
                 'lat': (-40.9, -41.7),
                 'long': (146.5, 147.5),
                 'resolution': (-25,25)
                 }
 
 ds_tam = DEADataHandling.load_clearlandsat(dc=dc, query=query_PL, product='fc',
-                                            ls7_slc_off=True, masked_prop=0.3,
-                                            mask_pixel_quality=True)
+                                            ls7_slc_off=True, masked_prop=0.3)
 
 ################################################################################
 
@@ -46,6 +45,12 @@ FC_percentiles.attrs = ds_tam.attrs
 FC_percentiles.attrs['units'] = 'fractional_cover_percentage_percentile'
 
 ################################################################################
+try:
+    DEADataHandling.write_your_netcdf(FC_percentiles, 'FC_percentiles', '/g/data/r78/DPIPWE_lm/output_data/FC_percentiles.nc', crs = ds_tam.crs)
+# #complain if the file already exists but don't fail    
+except RuntimeError as err:
+    print("RuntimeError: {0}".format(err))
+print('wrote to netCDF' )
 
 try:
     ds = FC_percentiles
