@@ -56,7 +56,7 @@ if os.path.exists(output_filename):
 
 ########################################################
 
-sensor = 8 # senosor to use
+sensor = [7, 8] # sensor to use
 datatime = ('2014-01-01', '2018-06-30') # period to retrieve data
 referenceperiod = ('2014-01-01', '2017-06-30') # period used for the calculation of geometric median (pre fire season)
 mappingperiod = ('2017-07-01', '2018-06-30') # period of interest for change/severity mapping
