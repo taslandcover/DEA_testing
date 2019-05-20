@@ -9,7 +9,6 @@
 #PBS -M lindsay.mitchell@dpipwe.tas.gov.au
 #PBS -m be
 
-#module use /g/data/u46/users/public/modules/modulefiles/
 module use /g/data/v10/public/modules/modulefiles
 module load dea
 #module load pcm
