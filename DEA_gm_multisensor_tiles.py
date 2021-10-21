@@ -25,7 +25,7 @@ import DEADataHandling
 
 
 import datacube
-dc = datacube.Datacube(app='load_nbarx_geomedian')
+dc = datacube.Datacube(app='nbarx_geomedian')
 
 ''' delete if not needed
 
@@ -39,7 +39,7 @@ from datacube.helpers import ga_pq_fuser
 dc = datacube.Datacube(app='dc_burnmap_comp')
 '''
 
-outputdir = '/g/data/r78/DPIPWE_lm/test_burn_mapping/output_data'
+outputdir = '/g/data/r78/DPIPWE_lm/output_data'
 if not os.path.exists(outputdir):
     print("output directory doesn't exist")
     exit()
@@ -57,7 +57,7 @@ if label:
     index = albers[albers['label']==label].index[0]
     x = (albers.loc[index]['X_MIN'], albers.loc[index]['X_MAX'])
     y = (albers.loc[index]['Y_MIN'], albers.loc[index]['Y_MAX'])
-    output_filename = outputdir + '/multigm_2016-2017_'+'_'.join(label.split(','))+'.nc'
+    output_filename = outputdir + '/ls_multigm_2010_2015_'+'_'.join(label.split(','))+'.nc'
     print("Working on tile {}...".format(label))
 else:
     x, y = (1385000.0, 1375000.0), (-4570000.0, -4580000.0)
@@ -65,16 +65,16 @@ else:
         output_filename = 'multigm_2016-2017_test_subset.nc'
     else:
         output_filename = 'multigm_2016-2017_test_one.nc'
-        
+
 if os.path.exists(output_filename):
     print("output file already exists.")
-    exit() 
+    exit()
 
 #####################################################
 
 product = 'nbart' #can be 'nbar', 'nbart' or 'fc'. Defaults to 'nbart'
 sensors = ['ls5', 'ls7', 'ls8'] #take or remove as needed
-time = ('2016-12-01', '2017-01-30')
+time = ('2010-01-01', '2015-12-31')
 resolution = (25,25)
 
 ####################################################
@@ -90,9 +90,10 @@ def multigm(x, y):
                                            masked_prop=0,
                                            sensors = sensors,
                                            bands_of_interest = ['blue', 'green', 'nir', 'red', 'swir1', 'swir2'],
+                                           mask_pixel_quality=True,
                                            ls7_slc_off=True)
 
-    
+
     # compute geomedian
     dsm_gm = GeoMedian().compute(dsm)
     return dsm_gm.copy()

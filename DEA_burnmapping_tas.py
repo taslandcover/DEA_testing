@@ -4,7 +4,7 @@ A TILELIST (text) file can be used to nominate the DEA tiles
 for processing (e.g. tiles covering Tasmania). Incude functions
 to show processing times for each step
 '''
-   
+
 import pandas as pd
 import geopandas as gpd
 import xarray as xr
@@ -12,6 +12,10 @@ import sys, os
 import time
 import multiprocessing
 ncpus = multiprocessing.cpu_count()
+
+#set path to burncube module
+#sys.path.append(os.path.abspath('/g/data/r78/DPIPWE_lm/test_burn_mapping'))
+sys.path.append(os.path.abspath('/g/data/r78/DPIPWE_lm/repos/burn-mapping/notebooks/handover'))
 from BurnCube import BurnCube #including burn mapping main functions
 
 
@@ -20,7 +24,7 @@ from BurnCube import BurnCube #including burn mapping main functions
 ########################################################
 # location identified from Australian Albers tiles
 
-outputdir = '/g/data/r78/DPIPWE_lm/test_burn_mapping/output_data'
+outputdir = '/g/data/r78/DPIPWE_lm/test_burn_mapping/output_data/2017_2018'
 if not os.path.exists(outputdir):
     print("output directory doesn't exist")
     exit()
@@ -38,14 +42,14 @@ if label:
     index = albers[albers['label']==label].index[0]
     x = (albers.loc[index]['X_MIN'], albers.loc[index]['X_MAX'])
     y = (albers.loc[index]['Y_MIN'], albers.loc[index]['Y_MAX'])
-    output_filename = outputdir + '/BurnScarMap_2016-2017_'+'_'.join(label.split(','))+'.nc'
+    output_filename = outputdir + '/BurnScarMap_2017_2018_'+'_'.join(label.split(','))+'.nc'
     print("Working on tile {}...".format(label))
 else:
     x, y = (1385000.0, 1375000.0), (-4570000.0, -4580000.0) # location used if TILELIST not provided
     if subset:
-        output_filename = 'BurnScarMap_2016-2017_test_subset.nc'
+        output_filename = 'BurnScarMap_2017_2018_test_subset.nc'
     else:
-        output_filename = 'BurnScarMap_2016-2017_test_one.nc'
+        output_filename = 'BurnScarMap_2017_2018_test_one.nc'
 
 if os.path.exists(output_filename):
     print("output file already exists.")
@@ -53,10 +57,10 @@ if os.path.exists(output_filename):
 
 ########################################################
 
-sensor = 8 # senosor to use
-datatime = ('2013-01-01', '2017-06-30') # period to retrieve data
-referenceperiod = ('2013-01-01', '2016-06-30') # period used for the calculation of geometric median (pre fire season)
-mappingperiod = ('2016-07-01', '2017-06-30') # period of interest for change/severity mapping
+sensor = 7 # senosor to use
+datatime = ('2014-01-01', '2018-06-30') # period to retrieve data
+referenceperiod = ('2014-01-01', '2017-06-30') # period used for the calculation of geometric median (pre fire season)
+mappingperiod = ('2017-07-01', '2018-06-30') # period of interest for change/severity mapping
 
 def burnmap(x, y, sensor=sensor, datatime=datatime,
             referenceperiod=referenceperiod, mappingperiod=mappingperiod,
