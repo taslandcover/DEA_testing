@@ -1,6 +1,6 @@
 '''
 Based on Fang's batch burn mapping script and adapted for Tas.
-A TILELIST (text) file can be used to nominate the DEA tiles
+TILELIST (text) file can be used to nominate the DEA tiles
 for processing (e.g. tiles covering Tasmania). Incude functions
 to show processing times for each step
 '''
