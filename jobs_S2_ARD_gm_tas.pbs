@@ -16,4 +16,4 @@ module load dea
 #module load pcm
 module load parallel
 
-cat TILELIST | parallel -j 2 -u python DEA_S2_ARD_geomedian_tiles.py
+cat TILELIST_tasmania.txt | parallel -j 2 -u python DEA_S2_ARD_geomedian_tiles.py
