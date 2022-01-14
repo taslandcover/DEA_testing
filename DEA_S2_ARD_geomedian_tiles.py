@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore")
 
 import sys
 
-sys.path.insert(1, "../Tools/")
+sys.path.append(os.path.abspath('/g/data/r78/DPIPWE_lm/dea-notebooks/Tools'))
 #from dea_tools.dask import create_local_dask_cluster
 from dea_tools.datahandling import load_ard
 #from dea_tools.plotting import rgb
