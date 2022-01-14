@@ -4,7 +4,7 @@
 #PBS -l ncpus=2
 #PBS -l mem=100GB
 #PBS -l walltime=2:00:00
-#PBS -l software=python 3
+#PBS -l software=python
 #PBS -l wd
 #PBS -M lindsay.mitchell@dpipwe.tas.gov.au
 #PBS -m be
@@ -15,4 +15,4 @@ module load dea
 #module load pcm
 module load parallel
 
-cat TILELIST | parallel -j 2 -u python DEA_S2_ARD_geomedian_tiles.py
+cat TILELIST | parallel -j 2 -u python 3 DEA_S2_ARD_geomedian_tiles.py
