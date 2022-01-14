@@ -5,7 +5,7 @@
 #PBS -l mem=100GB
 #PBS -l walltime=2:00:00
 #PBS -l software=python
-#PBS -l storage=gdata/u46+gdata/rs0+gdata/v10
+#PBS -l storage=gdata/u46+gdata/rs0+gdata/v10+gdata/r78
 #PBS -l wd
 #PBS -M lindsay.mitchell@dpipwe.tas.gov.au
 #PBS -m be
@@ -16,4 +16,4 @@ module load dea
 #module load pcm
 module load parallel
 
-cat /g/data/r78/DPIPWE_lm/repos/DEA_testing/TILELIST | parallel -j 2 -u python DEA_S2_ARD_geomedian_tiles.py
+cat TILELIST | parallel -j 2 -u python DEA_S2_ARD_geomedian_tiles.py
