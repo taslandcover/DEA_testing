@@ -14,11 +14,11 @@ warnings.filterwarnings("ignore")
 import sys
 
 sys.path.insert(1, "../Tools/")
-from dea_tools.dask import create_local_dask_cluster
+#from dea_tools.dask import create_local_dask_cluster
 from dea_tools.datahandling import load_ard
 #from dea_tools.plotting import rgb
 
-outputdir = '/g/data/r78/DPIPWE_lm/test_burn_mapping/output_data'
+outputdir = '/g/data/r78/DPIPWE_lm/test_geomedian_mapping/output_data'
 if not os.path.exists(outputdir):
     print("output directory doesn't exist")
     exit()
