@@ -60,8 +60,8 @@ resolution = (10, 10)
 def gm_comp(x, y):
     # Create a reusable query (can change resolution and/or bands here if needed)
     query = {
-        "lat": (-39.55, -40.17), #(-40.188, -40.214),
-        "lon": (143.81, 144.17), #(148.228, 148.268),
+        "x": x,
+        "y": y,
         "time": ("2019-07", "2020-06"),  # Months or day can be specified here
         "measurements": [
             "nbart_blue",
