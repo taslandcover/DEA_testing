@@ -7,7 +7,7 @@
 #PBS -l software=python
 #PBS -l storage=gdata/u46+gdata/rs0+gdata/v10+gdata/r78
 #PBS -l wd
-#PBS -M lindsay.mitchell@dpipwe.tas.gov.au
+#PBS -M lindsay.mitchell@nree.tas.gov.au
 #PBS -m be
 
 #module use /g/data/u46/users/public/modules/modulefiles/
