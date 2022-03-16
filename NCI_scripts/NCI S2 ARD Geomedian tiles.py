@@ -24,8 +24,8 @@ from datacube.drivers.netcdf import write_dataset_to_netcdf
 import xarray as xr
 
 #Specify output directory
-#outputdir = '/g/data/r78/DPIPWE_lm/output_data/'
-outputdir = './'
+outputdir = '/g/data/r78/DPIPWE_lm/output_data/'
+#outputdir = './'
 if not os.path.exists(outputdir):
     print("output directory doesn't exist")
     exit()
