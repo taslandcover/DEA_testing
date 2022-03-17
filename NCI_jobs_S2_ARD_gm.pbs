@@ -7,7 +7,7 @@
 #PBS -l software=python
 #PBS -l storage=gdata/u46+gdata/rs0+gdata/v10+gdata/r78
 #PBS -l wd
-#PBS -M lindsay.mitchell@nree.tas.gov.au
+#PBS -M lindsay.mitchell@nre.tas.gov.au
 #PBS -m be
 
 #module use /g/data/u46/users/public/modules/modulefiles/
@@ -16,4 +16,4 @@ module load dea
 #module load pcm
 module load parallel
 
-cat TILELIST | parallel -j 2 -u python NCI_scripts/NCI S2 ARD Geomedian tiles.py
+cat TILELIST | parallel -j 2 -u python /NCI_scripts/NCI S2 ARD Geomedian tiles.py
