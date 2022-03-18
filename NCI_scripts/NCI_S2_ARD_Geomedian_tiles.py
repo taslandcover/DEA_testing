@@ -15,7 +15,7 @@ import geopandas as gpd
 #get the DEA version of the plotting functions
 import sys
 #sys.path.insert(1, '../Tools/')
-imporfrom dea_tools.datahandling import load_ard
+from dea_tools.datahandling import load_ard
 #sys.path.append(os.path.abspath('/g/data/r78/DPIPWE_lm/repos/dea-notebooks/Scripts'))
 #from dea_datahandling import load_ard
 from datacube_stats.statistics import GeoMedian
