@@ -16,4 +16,4 @@ module load dea
 #module load pcm
 module load parallel
 
-cat TILELIST | parallel -j 2 -u python NCI S2 ARD Geomedian tiles.py
+cat TILELIST | parallel -j 2 -u python NCI_S2_ARD_Geomedian_tiles.py
