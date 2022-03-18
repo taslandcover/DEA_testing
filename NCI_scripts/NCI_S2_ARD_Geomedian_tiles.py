@@ -66,10 +66,10 @@ if os.path.exists(output_filename):
 def load_ds(x, y):
     query = {'x': x,
              'y': y,
-             'time': ('2021')
+             'time': ('2021'),
              'measurements': ['nbart_blue', 'nbart_green', 'nbart_red', 'nbart_nir_1'], # Can add nbart_swir2 for true flase colour but change res to 20
              'resolution': (-20, 20),
-             'group_by': 'solar_day'}
+             'group_by': 'solar_day',
              'crs': 'EPSG:3577'}
         
     # Load available data from both Sentinel 2 satellites
