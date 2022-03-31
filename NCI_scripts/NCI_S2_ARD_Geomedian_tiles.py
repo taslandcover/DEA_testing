@@ -100,8 +100,8 @@ def load_ds(x, y):
     '''
 
     # Compute geomedian here is necessary - either for dataset or subset months
-    ds_cm_gm = GeoMedian().compute(ds_cm)
-    return ds_cm_mgm.copy()
+    ds_gm = GeoMedian().compute(ds)
+    return ds_gm.copy()
   
 #####################################################
 xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
