@@ -110,8 +110,11 @@ if subset:
 else:
     out = load_ds(x, y)
 
-*** Output to netcdf
-***datacube.storage.storage.write_dataset_to_netcdf(out, output_filename)
+ 
+''' 
+# Output to netcdf
+datacube.storage.storage.write_dataset_to_netcdf(out, output_filename)
+'''
 
 # Here we can export the geomedian
 # for COG we need an array not a dataset
