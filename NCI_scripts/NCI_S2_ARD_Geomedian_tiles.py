@@ -69,6 +69,7 @@ if os.path.exists(output_filename):
 def load_ds(x, y):
     query = {'x': x,
              'y': y,
+             'crs': 'EPSG:3577',
              'time': ('2021'),
              'measurements': ['nbart_blue', 'nbart_green', 'nbart_red', 'nbart_nir_1'], # Can add nbart_swir2 for true flase colour but change res to 20
              'resolution': (-20, 20),
