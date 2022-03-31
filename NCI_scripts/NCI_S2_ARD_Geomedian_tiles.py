@@ -110,7 +110,8 @@ y1, y2 = (y[0], ym), (ym, y[1])
 if subset:
     out1 = load_ds(x1, y)
     out2 = load_ds(x2, y)
-    out = xr.concat([out1, out2], dim='x')
+    #out = xr.concat([out1, out2], dim='x')
+    out = xr.concat([out1, out2], dim='time')
 else:
     out = load_ds(x, y)
 
