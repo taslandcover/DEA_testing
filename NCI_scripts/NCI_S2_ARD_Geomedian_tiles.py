@@ -11,6 +11,7 @@ import datacube
 import os
 import pandas as pd
 import geopandas as gpd
+from odc.algo import to_f32, xr_geomedian, int_geomedian
 
 #get the DEA version of the plotting functions
 import sys
@@ -99,9 +100,15 @@ def load_ds(x, y):
     ds_cm = ds.sel(time=(ds['time.month'].isin(c_months)).dropna(dim='time'))
     '''
 
+    '''
     # Compute geomedian here is necessary - either for dataset or subset months
     ds_gm = GeoMedian().compute(ds)
     return ds_gm.copy()
+    '''
+    
+    geomedian = int_geomedian(ds)
+    geomedian = geomedian.compute()
+    return geomedian
   
 #####################################################
 xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
@@ -110,8 +117,7 @@ y1, y2 = (y[0], ym), (ym, y[1])
 if subset:
     out1 = load_ds(x1, y)
     out2 = load_ds(x2, y)
-    #out = xr.concat([out1, out2], dim='x')
-    out = xr.concat([out1, out2], dim='time')
+    out = xr.concat([out1, out2], dim='x')
 else:
     out = load_ds(x, y)
 
