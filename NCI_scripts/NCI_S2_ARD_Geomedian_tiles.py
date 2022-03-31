@@ -75,7 +75,7 @@ def load_ds(x, y):
     # Load available data from both Sentinel 2 satellites
     ds = load_ard(dc=dc,
                   products=['s2a_ard_granule', 's2b_ard_granule'],
-                  dask_chunks={'time':1}
+                  dask_chunks={'time':1},
                   **query)
 
     '''
