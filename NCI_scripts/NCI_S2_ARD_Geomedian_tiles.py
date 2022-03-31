@@ -15,10 +15,10 @@ from odc.algo import to_f32, xr_geomedian, int_geomedian
 
 #get the DEA version of the plotting functions
 import sys
-#sys.path.insert(1, '../Tools/')
-#from dea_tools.datahandling import load_ard
-sys.path.append(os.path.abspath('/g/data/r78/DPIPWE_lm/repos/dea-notebooks/Scripts'))
-from dea_datahandling import load_ard
+#sys.path.append(os.path.abspath('/g/data/r78/DPIPWE_lm/repos/dea-notebooks/Scripts'))
+#from dea_datahandling import load_ard
+sys.path.append(os.path.abspath('/g/data/r78/DPIPWE_lm/repos/dea-notebooks/Tools'))
+from dea_tools.datahandling import load_ard
 from datacube_stats.statistics import GeoMedian
 from datacube.utils.cog import write_cog
 from datacube.drivers.netcdf import write_dataset_to_netcdf
