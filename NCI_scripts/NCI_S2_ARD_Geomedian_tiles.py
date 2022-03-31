@@ -48,14 +48,17 @@ if label:
     index = albers[albers['label']==label].index[0]
     x = (albers.loc[index]['X_MIN'], albers.loc[index]['X_MAX'])
     y = (albers.loc[index]['Y_MIN'], albers.loc[index]['Y_MAX'])
-    output_filename = outputdir + '/month_gm_2016-2017_'+'_'.join(label.split(','))+'.nc'
+    #output_filename = outputdir + '/month_gm_2016-2017_'+'_'.join(label.split(','))+'.nc'
+    output_filename = outputdir + '/month_gm_2016-2017_'+'_'.join(label.split(','))
     print("Working on tile {}...".format(label))
 else:
     x, y = (1385000.0, 1375000.0), (-4570000.0, -4580000.0)
     if subset:
-        output_filename = 'S2_ARD_gm_2021_test_subset.nc'
+        #output_filename = 'S2_ARD_gm_2021_test_subset.nc'
+        output_filename = 'S2_ARD_gm_2021_test_subset'
     else:
-        output_filename = 'S2_ARD_gm_2021_test_one.nc'
+        #output_filename = 'S2_ARD_gm_2021_test_one.nc'
+        output_filename = 'S2_ARD_gm_2021_test_one'
 
 if os.path.exists(output_filename):
     print("output file already exists.")
@@ -70,7 +73,7 @@ def load_ds(x, y):
              'measurements': ['nbart_blue', 'nbart_green', 'nbart_red', 'nbart_nir_1'], # Can add nbart_swir2 for true flase colour but change res to 20
              'resolution': (-20, 20),
              'group_by': 'solar_day',
-             'crs': 'EPSG:3577'}
+             'output_crs': 'EPSG:3577'}
         
     # Load available data from both Sentinel 2 satellites
     ds = load_ard(dc=dc,
