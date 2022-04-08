@@ -107,8 +107,8 @@ def load_ds(x, y):
     '''
     
     geomedian = int_geomedian(ds)
-    geomedian = geomedian.compute()
-    return geomedian
+    geomedian_comp = geomedian.compute()
+    return geomedian_comp
   
 #####################################################
 xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
