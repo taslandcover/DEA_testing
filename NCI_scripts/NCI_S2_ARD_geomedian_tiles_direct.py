@@ -7,7 +7,7 @@ from odc.algo import to_f32, xr_geomedian, int_geomedian
 #get the DEA version of the plotting functions
 import sys
 #sys.path.insert(1, '../Tools/')
-sys.path.append(os.path.abspath('/g/data/r78/DPIPWE_lm/repos/dea-notebooks/Scripts'))
+sys.path.append(os.path.abspath('/g/data/r78/DPIPWE_lm/repos/dea-notebooks/Tools'))
 #from dea_datahandling import load_ard
 from dea_tools.datahandling import load_ard
 from dea_tools.dask import create_local_dask_cluster
@@ -62,6 +62,7 @@ lazy_ds = dc.load(product=['s2a_ard_granule', 's2b_ard_granule'],
                   **query)
 
 # Run the Geomedian calculation
+print('Running geomedian...')
 geomedian = int_geomedian(lazy_ds)
 geomedian = geomedian.compute()
 
@@ -70,6 +71,9 @@ geomedian = geomedian.compute()
 out_da = geomedian.to_array()
 
 # Write multi-band GeoTIFF to a location
+print('Saving COG...')
 write_cog(geo_im=out_da,
           fname=output_filename,
           overwrite=True)
+
+print('Finished processing')
