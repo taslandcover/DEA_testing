@@ -37,7 +37,7 @@ dc = datacube.Datacube(app='load_ard_and_geomedian')
 #########################################################
 
 subset = True
-label = '12, 47'
+label = None
 albers = gpd.read_file('/g/data/r78/DPIPWE_lm/test_burn_mapping/reference_data/Albers_Australia_Coast_Islands_Reefs.shp')
 
 if len(sys.argv)==2:
