@@ -106,9 +106,13 @@ def load_ds(x, y):
     return ds_gm.copy()
     '''
     
-    geomedian = int_geomedian(ds)
+    #geomedian = int_geomedian(ds)
     #geomedian = geomedian.compute()
-    return geomedian
+    #return geomedian
+    
+    # compute geomedian
+    ds_gm = GeoMedian().compute(ds)
+    return ds_gm.copy()
   
 #####################################################
 xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
