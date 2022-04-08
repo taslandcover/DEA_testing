@@ -37,13 +37,8 @@ dc = datacube.Datacube(app='load_ard_and_geomedian')
 #########################################################
 
 subset = True
-label = None
+label = '12, 47'
 albers = gpd.read_file('/g/data/r78/DPIPWE_lm/test_burn_mapping/reference_data/Albers_Australia_Coast_Islands_Reefs.shp')
-
-if len(sys.argv)==2:
-    label = sys.argv[1]
-elif len(sys.argv)==3:
-    label = "{},{}".format(sys.argv[1], sys.argv[2])
 
 if label:
     index = albers[albers['label']==label].index[0]
