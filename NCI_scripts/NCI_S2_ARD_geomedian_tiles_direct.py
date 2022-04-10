@@ -44,7 +44,8 @@ else:
         output_filename = 'S2_ARD_gm_2021_test_one'
         
 # Set up Dask client
-client = create_local_dask_cluster(return_client=True)       
+#client = create_local_dask_cluster(return_client=True)       
+#client = start_local_dask(mem_safety_margin = '3Gb')
 
 query = {'x': x,
           'y': y,
