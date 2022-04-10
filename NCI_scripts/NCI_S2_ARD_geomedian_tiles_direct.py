@@ -45,7 +45,7 @@ else:
         
 # Set up Dask client
 #client = create_local_dask_cluster(return_client=True)       
-#client = start_local_dask(mem_safety_margin = '3Gb')
+client = start_local_dask(mem_safety_margin = '3Gb')
 
 query = {'x': x,
           'y': y,
