@@ -70,7 +70,8 @@ def load_ds(x, y):
     # compute geomedian
     #ds_gm = GeoMedian().compute(ds)
     #return ds_gm.copy()       
-        
+
+'''        
 #Compute and then concat subsets  
 xm, ym = (x[0]+x[1])/2, (y[0]+y[1])/2
 x1, x2 = (x[0], xm), (xm, x[1])
@@ -81,7 +82,26 @@ if subset:
     out = xr.concat([out1, out2], dim='x')
 else:
     out = load_ds(x, y)
+'''
+#Compute and then concat subsets 
+xt, yt = (x[1]-x[0])/3, (y[1]-y[0])/3
+x1, x2, x3, x4 = (x[0], x[0]+xt, x[0]+xt*2, x[0]+xt*3)
+xq1 = (x1, x2)
+xq2 = (x2, x3)
+xq3 = (x3, x4)
 
+if subset:
+    #out1 = load_ds(x1, y)
+    #out2 = load_ds(x2, y)
+    #out = xr.concat([out1, out2], dim='x')
+    out1 = load_ds(xq1, y)
+    out2 = load_ds(xq2, y)
+    out3 = load_ds(xq3, y)
+    out = xr.concat([out1, out2, out3], dim='x')
+else:
+    out = load_ds(x, y)
+    
+    
 # Here we can export the geomedian
 # for COG we need an array not a dataset
 out_da = out.to_array()
