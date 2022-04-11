@@ -47,7 +47,7 @@ def load_ds(x, y):
     query = {'x': x,
           'y': y,
           'crs': 'EPSG:3577',
-          'time': ('2021-10', '2022-04'),
+          'time': ('2020-11', '2021-03'),
           'measurements': ['nbart_blue', 'nbart_green', 'nbart_red', 'nbart_nir_1', 'nbart_swir_2'], # Can add nbart_swir_2 for true flase colour but change res to 20
           'resolution': (-10, 10),
           'group_by': 'solar_day',
