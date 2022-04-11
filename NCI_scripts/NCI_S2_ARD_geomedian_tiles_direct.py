@@ -47,11 +47,11 @@ def load_ds(x, y):
     query = {'x': x,
           'y': y,
           'crs': 'EPSG:3577',
-          'time': ('2021-10', '2021-04'),
+          'time': ('2021-10', '2022-04'),
           'measurements': ['nbart_blue', 'nbart_green', 'nbart_red', 'nbart_nir_1', 'nbart_swir_2'], # Can add nbart_swir_2 for true flase colour but change res to 20
           'resolution': (-10, 10),
           'group_by': 'solar_day',
-          'output_crs': 'EPSG:3577'} #Albers is 'output_crs': 'EPSG:3577'
+          'output_crs': 'EPSG:28355'} #Albers is 'output_crs': 'EPSG:3577'
     
         
     # Load available data from both Sentinel 2 satellites
