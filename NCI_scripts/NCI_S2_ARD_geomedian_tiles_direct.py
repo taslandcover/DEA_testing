@@ -44,7 +44,7 @@ else:
         output_filename = 'S2_ARD_gm_2021_test_one'
         
 
- def load_ds(x, y):
+def load_ds(x, y):
     #This query from NCI_Geomedian_Tiles
     query = {'x': x,
           'y': y,
