@@ -66,8 +66,8 @@ def load_ds(x, y):
   
     # Compute geomedian here is necessary - either for dataset or subset months
     geomedian = int_geomedian(ds)
-    geomedian = geomedian.compute()
-    return geomedian
+    myGeomed = geomedian.compute()
+    return myGeomed
     
     # compute geomedian
     #ds_gm = GeoMedian().compute(ds)
@@ -86,7 +86,7 @@ else:
 
 # Here we can export the geomedian
 # for COG we need an array not a dataset
-out_da = geomedian.to_array()
+out_da = out.to_array()
 
 # Write multi-band GeoTIFF to a location
 print('Saving COG...')
