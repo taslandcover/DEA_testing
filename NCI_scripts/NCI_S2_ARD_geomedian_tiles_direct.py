@@ -24,6 +24,7 @@ if not os.path.exists(outputdir):
 # Connect to datacube containing Sentinel 2 data
 dc = datacube.Datacube(app='Dask_load_ard_and_geomedian')
 
+subset = True
 label = '12,-47'
 albers = gpd.read_file('/g/data/r78/DPIPWE_lm/test_burn_mapping/reference_data/Albers_Australia_Coast_Islands_Reefs.shp')
 
